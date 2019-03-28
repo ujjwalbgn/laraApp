@@ -117,6 +117,7 @@
                 users : {},
 
                 form : new Form ({
+                    id: '',
                     name : '',
                     email: '',
                     password: '',
@@ -147,6 +148,7 @@
             },
 
             deleteUser(id){
+                this.$Progress.start();
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -170,12 +172,14 @@
                                     'success'
                                 )
                             }
+                            this.$Progress.finish();
                         }) .catch(()=>{
                             toast.fire({
                                 type: 'error',
                                 title: 'Oops...',
                                 text: 'Something went wrong!<br> Unable to Delete User'
                             })
+                            this.$Progress.fail();
                         })
                     }
                 })
@@ -202,23 +206,41 @@
                         }
                     )
                     .catch(()=>{
-                        //Sweet Alert
-                        toast.fire({
-                            type: 'success',
-                            title: 'User Created Successfully'
-                        });
+
 
                         toast.fire({
                             type: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!'
                         })
+                        this.$Progress.fail();
+
                     });
                 this.$Progress.finish();
             },
 
             updateUser(){
-                console.log('Update User Log');
+                this.$Progress.start();
+                this.form.put('api/user/' +this.form.id)
+                    .then(()=>{
+                        //Sweet Alert
+                        toast.fire({
+                            type: 'success',
+                            title: 'User Updated Successfully'
+                        });
+
+                        //Fire Event
+                        Fire.$emit('LoadUser');
+
+                        //hide Modal
+                        $('#addNew').modal('hide');
+
+                        this.$Progress.finish();
+
+                    })
+                    .catch(()=>{
+                        this.$Progress.fail();
+                    });
             },
         },
 

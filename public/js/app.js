@@ -1994,6 +1994,7 @@ __webpack_require__.r(__webpack_exports__);
       editmode: false,
       users: {},
       form: new Form({
+        id: '',
         name: '',
         email: '',
         password: '',
@@ -2027,6 +2028,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteUser: function deleteUser(id) {
       var _this2 = this;
 
+      this.$Progress.start();
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -2044,17 +2046,23 @@ __webpack_require__.r(__webpack_exports__);
               Fire.$emit('LoadUser');
               Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
             }
+
+            _this2.$Progress.finish();
           }).catch(function () {
             toast.fire({
               type: 'error',
               title: 'Oops...',
               text: 'Something went wrong!<br> Unable to Delete User'
             });
+
+            _this2.$Progress.fail();
           });
         }
       });
     },
     createUser: function createUser() {
+      var _this3 = this;
+
       //Progress bar
       this.$Progress.start(); //Post User API
 
@@ -2069,29 +2077,43 @@ __webpack_require__.r(__webpack_exports__);
           title: 'User Created Successfully'
         });
       }).catch(function () {
-        //Sweet Alert
-        toast.fire({
-          type: 'success',
-          title: 'User Created Successfully'
-        });
         toast.fire({
           type: 'error',
           title: 'Oops...',
           text: 'Something went wrong!'
         });
+
+        _this3.$Progress.fail();
       });
       this.$Progress.finish();
     },
     updateUser: function updateUser() {
-      console.log('Update User Log');
+      var _this4 = this;
+
+      this.$Progress.start();
+      this.form.put('api/user/' + this.form.id).then(function () {
+        //Sweet Alert
+        toast.fire({
+          type: 'success',
+          title: 'User Updated Successfully'
+        }); //Fire Event
+
+        Fire.$emit('LoadUser'); //hide Modal
+
+        $('#addNew').modal('hide');
+
+        _this4.$Progress.finish();
+      }).catch(function () {
+        _this4.$Progress.fail();
+      });
     }
   },
   created: function created() {
-    var _this3 = this;
+    var _this5 = this;
 
     this.loadUsers();
     Fire.$on('LoadUser', function () {
-      _this3.loadUsers();
+      _this5.loadUsers();
     });
   }
 });
