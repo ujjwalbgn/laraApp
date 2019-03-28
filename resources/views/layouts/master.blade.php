@@ -84,7 +84,7 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <router-link to="/users" class="nav-link">
-                                    <i class="fas fa-users nav-icon teal"></i>
+                                    <i class="fas fa-users nav-icon tealEF"></i>
                                     <p>Users</p>
                                 </router-link>
                             </li>
@@ -125,6 +125,7 @@
         <div class="content">
             <div class="container-fluid">
                 <router-view></router-view>
+                <vue-progress-bar></vue-progress-bar>
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content -->

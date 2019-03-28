@@ -128,7 +128,9 @@
             },
 
             createUser(){
+                this.$Progress.start();
                 this.form.post('api/user');
+                this.$Progress.finish();
             }
         },
 
