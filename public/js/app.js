@@ -2007,29 +2007,71 @@ __webpack_require__.r(__webpack_exports__);
         return _this.users = data.data;
       });
     },
+    deleteUser: function deleteUser(id) {
+      var _this2 = this;
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        //send  request to the server
+        if (result.value) {
+          _this2.form.delete('api/user/' + id).then(function () {
+            {
+              //Fire Event
+              Fire.$emit('LoadUser');
+              Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+            }
+          }).catch(function () {
+            toast.fire({
+              type: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!<br> Unable to Delete User'
+            });
+          });
+        }
+      });
+    },
     createUser: function createUser() {
       //Progress bar
       this.$Progress.start(); //Post User API
 
-      this.form.post('api/user'); //Fire Event
+      this.form.post('api/user').then(function () {
+        //Fire Event
+        Fire.$emit('LoadUser'); //hide Modal
 
-      Fire.$emit('UserCreated'); //hide Modal
+        $('#addNew').modal('hide'); //Sweet Alert
 
-      $('#addNew').modal('hide'); //Sweet Alert
-
-      toast.fire({
-        type: 'success',
-        title: 'User Created Successfully'
+        toast.fire({
+          type: 'success',
+          title: 'User Created Successfully'
+        });
+      }).catch(function () {
+        //Sweet Alert
+        toast.fire({
+          type: 'success',
+          title: 'User Created Successfully'
+        });
+        toast.fire({
+          type: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!'
+        });
       });
       this.$Progress.finish();
     }
   },
   created: function created() {
-    var _this2 = this;
+    var _this3 = this;
 
     this.loadUsers();
-    Fire.$on('UserCreated', function () {
-      _this2.loadUsers();
+    Fire.$on('LoadUser', function () {
+      _this3.loadUsers();
     });
   }
 });
@@ -58313,7 +58355,24 @@ var render = function() {
                         _vm._v(_vm._s(_vm._f("filterDate")(user.created_at)))
                       ]),
                       _vm._v(" "),
-                      _vm._m(2, true)
+                      _c("td", [
+                        _vm._m(2, true),
+                        _vm._v(
+                          "\n                                /\n                                "
+                        ),
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                _vm.deleteUser(user.id)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-trash red" })]
+                        )
+                      ])
                     ])
                   })
                 ],
@@ -58639,16 +58698,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fa fa-edit blue" })
-      ]),
-      _vm._v(
-        "\n                                /\n                                "
-      ),
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fa fa-trash red" })
-      ])
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fa fa-edit blue" })
     ])
   },
   function() {
@@ -73078,7 +73129,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 //Sweet Alert 2
 
-window.swal = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a;
+window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a;
 var toast = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   toast: true,
   position: 'top-end',

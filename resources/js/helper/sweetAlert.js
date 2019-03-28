@@ -1,9 +1,9 @@
 //Sweet Alert 2
 
-import swal from 'sweetalert2'
-window.swal = swal;
+import Swal from 'sweetalert2'
+window.Swal = Swal;
 
-const toast = swal.mixin({
+const toast = Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
