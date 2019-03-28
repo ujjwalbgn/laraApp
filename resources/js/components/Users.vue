@@ -134,6 +134,9 @@
                 //Post User API
                 this.form.post('api/user');
 
+                //Fire Event
+                Fire.$emit('UserCreated');
+
                 //hide Modal
                 $('#addNew').modal('hide');
 
@@ -148,6 +151,9 @@
 
         created() {
             this.loadUsers();
+            Fire.$on('UserCreated',()=> {
+                this.loadUsers();
+            })
         }
     }
 </script>

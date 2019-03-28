@@ -35,7 +35,7 @@ const router = new VueRouter({
     routes
 });
 
-
+window.Fire = new Vue();
 
 
 //Moment JS and its filters

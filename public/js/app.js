@@ -2011,7 +2011,9 @@ __webpack_require__.r(__webpack_exports__);
       //Progress bar
       this.$Progress.start(); //Post User API
 
-      this.form.post('api/user'); //hide Modal
+      this.form.post('api/user'); //Fire Event
+
+      Fire.$emit('UserCreated'); //hide Modal
 
       $('#addNew').modal('hide'); //Sweet Alert
 
@@ -2023,7 +2025,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
+    var _this2 = this;
+
     this.loadUsers();
+    Fire.$on('UserCreated', function () {
+      _this2.loadUsers();
+    });
   }
 });
 
@@ -72649,7 +72656,8 @@ var routes = [{
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   routes: routes
-}); //Moment JS and its filters
+});
+window.Fire = new Vue(); //Moment JS and its filters
 
 
 Vue.filter('filterDate', function (value) {
