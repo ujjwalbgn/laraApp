@@ -128,8 +128,20 @@
             },
 
             createUser(){
+                //Progress bar
                 this.$Progress.start();
+
+                //Post User API
                 this.form.post('api/user');
+
+                //hide Modal
+                $('#addNew').modal('hide');
+
+                //Sweet Alert
+                toast.fire({
+                    type: 'success',
+                    title: 'User Created Successfully'
+                });
                 this.$Progress.finish();
             }
         },

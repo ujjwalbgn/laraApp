@@ -6,7 +6,8 @@
 
 require('./bootstrap');
 require('./helper/filters');
-require('./helper/progressBar')
+require('./helper/progressBar');
+require('./helper/sweetAlert');
 
 window.Vue = require('vue');
 
@@ -32,8 +33,7 @@ let routes = [
 const router = new VueRouter({
     mode: 'history',
     routes
-})
-
+});
 
 
 
