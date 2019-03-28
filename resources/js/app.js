@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -6,8 +5,10 @@
  */
 
 require('./bootstrap');
+require('./helper/filters');
 
 window.Vue = require('vue');
+
 import { Form, HasError, AlertError } from 'vform';
 
 window.Form = Form;
@@ -30,6 +31,11 @@ const router = new VueRouter({
 })
 
 
+//Moment JS and its filters
+import moment from 'moment';
+Vue.filter('filterDate', function(value){
+    return moment(value).format('MMMM Do YYYY');
+})
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
