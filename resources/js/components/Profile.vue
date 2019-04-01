@@ -79,7 +79,7 @@
                                         <label for="inputName" class="col-sm-2 control-label">Name</label>
 
                                         <div class="col-sm-12">
-                                            <input v-model="form.name" type="email" class="form-control" id="inputName" placeholder="Name">
+                                            <input v-model="form.name" type="name" class="form-control" id="inputName" placeholder="Name">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -111,7 +111,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-12">
-                                            <button type="submit" class="btn btn-success">Update</button>
+                                            <button @click.prevent="updateinfo" type="submit" class="btn btn-success">Update</button>
                                         </div>
                                     </div>
                                 </form>
@@ -148,15 +148,26 @@
         },
 
         methods:{
-          updateProfile(e){
-               // console.log('uploading');
-               let file= e.target.files[0];
-               let reader = new FileReader();
-               reader.onload =  (file) =>{
+            updateProfile(e){
+                // console.log('uploading');
+                let file= e.target.files[0];
+                let reader = new FileReader();
+                reader.onload =  (file) =>{
                     this.form.photo = reader.result;
-               }
-               reader.readAsDataURL(file);
-          }
+                }
+                reader.readAsDataURL(file);
+            },
+
+            updateinfo(){
+                this.$Progress.start();
+                this.form.put('api/profile/')
+                    .then(()=>{
+                        this.$Progress.finish()
+                    })
+                    .catch(()=>{
+                        this.$Progress.fail()
+                    })
+            },
         },
         created() {
             axios.get("api/profile").then(({data}) => (this.form.fill(data)));
