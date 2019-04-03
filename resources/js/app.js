@@ -82,6 +82,13 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue').default
 );
 
+
+//404 Vue Page
+Vue.component(
+    'not-found',
+    require('./components/404.vue').default
+);
+
 const app = new Vue({
     el: '#app',
     router
