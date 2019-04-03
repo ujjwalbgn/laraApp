@@ -38,6 +38,10 @@ const router = new VueRouter({
 
 window.Fire = new Vue();
 
+//User Type verification gate
+import Gate from './helper/gate';
+Vue.prototype.$gate = new Gate(window.user);
+
 
 //Moment JS and its filters
 import moment from 'moment';

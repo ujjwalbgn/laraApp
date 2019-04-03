@@ -43,7 +43,7 @@
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
             <img src={{asset("/img/logo.png")}} alt="Lara App Logo" class="brand-image img-circle elevation-3"
-                 style="opacity: .8">
+            style="opacity: .8">
             <span class="brand-text font-weight-light">Lara APP</span>
         </a>
 
@@ -73,32 +73,32 @@
                             </p>
                         </router-link>
                     </li>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link ">
-                            <i class="nav-icon fas fa-cogs green"></i>
-                            <p>
-                                Management
-                                <i class="right fa fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <router-link to="/users" class="nav-link">
-                                    <i class="fas fa-users nav-icon tealEF"></i>
-                                    <p>Users</p>
-                                </router-link>
-                            </li>
-                        </ul>
-                    </li>
                     @can('isAdmin')
-                    <li class="nav-item">
-                        <router-link to="/developer" class="nav-link">
-                            <i class="nav-icon fas fa-user-cog teal"></i>
-                            <p>
-                                Developer
-                            </p>
-                        </router-link>
-                    </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link ">
+                                <i class="nav-icon fas fa-cogs green"></i>
+                                <p>
+                                    Management
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <router-link to="/users" class="nav-link">
+                                        <i class="fas fa-users nav-icon tealEF"></i>
+                                        <p>Users</p>
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/developer" class="nav-link">
+                                <i class="nav-icon fas fa-user-cog teal"></i>
+                                <p>
+                                    Developer
+                                </p>
+                            </router-link>
+                        </li>
                     @endcan
                     <li class="nav-item">
                         <router-link to="/profile" class="nav-link">
@@ -154,6 +154,11 @@
     </footer>
 </div>
 <!-- ./wrapper -->
+@auth
+    <script>
+    window.user=@json(auth()->user())
+        </script>
+@endauth
 <script src={{ asset('js/app.js') }}></script>
 </body>
 </html>

@@ -18,6 +18,7 @@ class UserController extends Controller
 
     public function index()
     {
+        $this->authorize('isAdmin');
         return user::all()->first()->paginate(10);
     }
 
@@ -82,6 +83,8 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->authorize('isAdmin');
+
         $user = User::findOrFail($id);
 
         $this->validate($request,[
