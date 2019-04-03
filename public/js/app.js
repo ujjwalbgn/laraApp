@@ -1826,8 +1826,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Component mounted.');
+  mounted: function mounted() {// console.log('Component mounted.')
   }
 });
 
@@ -2283,7 +2282,7 @@ __webpack_require__.r(__webpack_exports__);
             toast.fire({
               type: 'error',
               title: 'Oops...',
-              text: 'Something went wrong!<br> Unable to Delete User'
+              text: 'Something went wrong! Unable to Delete User'
             });
 
             _this2.$Progress.fail();
@@ -2311,7 +2310,7 @@ __webpack_require__.r(__webpack_exports__);
         toast.fire({
           type: 'error',
           title: 'Oops...',
-          text: 'Something went wrong!'
+          html: 'Something went wrong! </br> Unable to create New User. '
         });
 
         _this3.$Progress.fail();
@@ -2336,6 +2335,13 @@ __webpack_require__.r(__webpack_exports__);
         _this4.$Progress.finish();
       }).catch(function () {
         _this4.$Progress.fail();
+
+        $('#addNew').modal('hide');
+        toast.fire({
+          type: 'error',
+          title: 'Oops...',
+          text: 'Unable to Update User!'
+        });
       });
     }
   },
@@ -60429,7 +60435,24 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12 mt-3" }, [
         _c("div", { staticClass: "card card-widget widget-user" }, [
-          _vm._m(0),
+          _c(
+            "div",
+            {
+              staticClass: "widget-user-header text-white",
+              staticStyle: { "background-image": "url('./img/photo1.png')" }
+            },
+            [
+              _c("h3", {
+                staticClass: "widget-user-username",
+                domProps: { textContent: _vm._s(_vm.form.name) }
+              }),
+              _vm._v(" "),
+              _c("h5", {
+                staticClass: "widget-user-desc",
+                domProps: { textContent: _vm._s(_vm.form.type) }
+              })
+            ]
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "widget-user-image" }, [
             _c("img", {
@@ -60438,17 +60461,17 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _vm._m(0)
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "tab-content" }, [
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
               _c(
                 "div",
@@ -60707,25 +60730,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "widget-user-header text-white",
-        staticStyle: { "background-image": "url('./img/photo1.png')" }
-      },
-      [
-        _c("h3", { staticClass: "widget-user-username" }, [
-          _vm._v("Elizabeth Pierce")
-        ]),
-        _vm._v(" "),
-        _c("h5", { staticClass: "widget-user-desc" }, [_vm._v("Web Designer")])
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

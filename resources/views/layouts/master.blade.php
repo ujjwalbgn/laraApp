@@ -90,6 +90,7 @@
                             </li>
                         </ul>
                     </li>
+                    @can('isAdmin')
                     <li class="nav-item">
                         <router-link to="/developer" class="nav-link">
                             <i class="nav-icon fas fa-user-cog teal"></i>
@@ -98,6 +99,7 @@
                             </p>
                         </router-link>
                     </li>
+                    @endcan
                     <li class="nav-item">
                         <router-link to="/profile" class="nav-link">
                             <i class="nav-icon fas fa-user-alt orange"></i>

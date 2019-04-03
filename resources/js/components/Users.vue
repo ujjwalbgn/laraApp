@@ -177,7 +177,7 @@
                             toast.fire({
                                 type: 'error',
                                 title: 'Oops...',
-                                text: 'Something went wrong!<br> Unable to Delete User'
+                                text: 'Something went wrong! Unable to Delete User'
                             })
                             this.$Progress.fail();
                         })
@@ -211,7 +211,7 @@
                         toast.fire({
                             type: 'error',
                             title: 'Oops...',
-                            text: 'Something went wrong!'
+                            html: 'Something went wrong! </br> Unable to create New User. '
                         })
                         this.$Progress.fail();
 
@@ -240,6 +240,12 @@
                     })
                     .catch(()=>{
                         this.$Progress.fail();
+                        $('#addNew').modal('hide');
+                        toast.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Unable to Update User!'
+                        })
                     });
             },
         },
