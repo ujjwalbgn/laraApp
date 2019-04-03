@@ -2048,7 +2048,7 @@ __webpack_require__.r(__webpack_exports__);
         Swal.fire({
           type: 'error',
           title: 'Oops...',
-          text: 'You are uploading a large file'
+          text: 'You are uploading a large file. Please upload a smaller file'
         });
       }
     },

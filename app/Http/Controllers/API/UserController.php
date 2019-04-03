@@ -57,11 +57,15 @@ class UserController extends Controller
 
         $currentPhoto = $user->photo;
         if ($request->photo != $currentPhoto){
-            $name = time(). '909'. $user->id . '.'. explode('/',explode(':', substr($request->photo, 0,
+            $name = time(). '.'. explode('/',explode(':', substr($request->photo, 0,
                     strpos($request->photo,';')))[1])[1];
             \Image::make($request->photo)->save(public_path('img/profile/').$name);
 
             $request->merge(['photo' => $name]);
+
+            $userPhotoLocation = public_path('img/profile/').$currentPhoto;  //Old photo path
+
+            @unlink($userPhotoLocation); //Deletes old photo
         }
         $this->validate($request,[
             'name' => ['required', 'string', 'max:191'],
