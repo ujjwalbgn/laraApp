@@ -21,7 +21,7 @@
                         <h5 class="widget-user-desc">Web Designer</h5>
                     </div>
                     <div class="widget-user-image">
-                        <img class="img-circle" src="" alt="User Avatar">
+                        <img class="img-circle" :src="getProfilePhoto()" alt="User Avatar">
                     </div>
                     <div class="card-footer">
                         <div class="row">
@@ -159,7 +159,7 @@
             updateProfile(e){
                 // console.log('uploading');
                 let file= e.target.files[0];
-                console.log(file);
+                // console.log(file);
                 let reader = new FileReader();
                 if(file['size'] < 2111775){
                     reader.onload =  (file) =>{
@@ -180,6 +180,9 @@
                 this.$Progress.start();
                 this.form.put('api/profile/')
                     .then(()=>{
+                        //Fire Event
+                        Fire.$emit('LoadUser');
+                        //Success Message
                         Swal.fire({
                             type: 'success',
                             title: 'Done',
@@ -196,9 +199,20 @@
                         })
                     })
             },
+
+            getProfilePhoto(){
+                return "img/profile/" + this.form.photo;
+            },
+
+            loadUser(){
+                axios.get("api/profile").then(({data}) => (this.form.fill(data)));
+            }
         },
         created() {
-            axios.get("api/profile").then(({data}) => (this.form.fill(data)));
+            this.loadUser();
+            Fire.$on('LoadUser',()=> {
+                this.loadUser();
+            })
         }
     }
 </script>

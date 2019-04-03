@@ -57,7 +57,7 @@ class UserController extends Controller
 
         $currentPhoto = $user->photo;
         if ($request->photo != $currentPhoto){
-            $name = time(). '.'. explode('/',explode(':', substr($request->photo, 0,
+            $name = time(). '909'. $user->id . '.'. explode('/',explode(':', substr($request->photo, 0,
                     strpos($request->photo,';')))[1])[1];
             \Image::make($request->photo)->save(public_path('img/profile/').$name);
 
