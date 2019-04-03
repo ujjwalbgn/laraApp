@@ -30,6 +30,7 @@ class UserController extends Controller
             'password' => ['required', 'string', 'min:6'],
         ]);
 
+
         return User::create([
             'name'=> $request['name'],
             'email'=> $request['email'],
@@ -53,11 +54,26 @@ class UserController extends Controller
     public function updateProfile(Request $request)
     {
         $user = Auth('api')->user();
-        if ($request->photo){
+
+        $currentPhoto = $user->photo;
+        if ($request->photo != $currentPhoto){
             $name = time(). '909'. $user->id . '.'. explode('/',explode(':', substr($request->photo, 0,
                     strpos($request->photo,';')))[1])[1];
             \Image::make($request->photo)->save(public_path('img/profile/').$name);
+
+            $request->merge(['photo' => $name]);
         }
+        $this->validate($request,[
+            'name' => ['required', 'string', 'max:191'],
+            'email' => ['required', 'string', 'email', 'max:191', 'unique:users,email,'.$user->id],
+            'password' => ['sometimes', 'string', 'min:6'],
+        ]);
+
+        if(!empty($request->password)){
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
+
+        $user->update($request->all());
     }
 
     public function update(Request $request, $id)
@@ -70,6 +86,10 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:191', 'unique:users,email,'.$user->id],
             'password' => ['sometimes', 'string', 'min:6'],
         ]);
+
+        if(!empty($request->password)){
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
 
         $user->update($request->all());
     }
