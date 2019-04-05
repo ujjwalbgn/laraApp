@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -18,8 +19,10 @@ class UserController extends Controller
 
     public function index()
     {
-        $this->authorize('isAdmin');
-        return user::all()->first()->paginate(10);
+//        $this->authorize('isAdmin');
+        if(Gate::allows('isAdmin') || Gate::allows('isAuthor')){
+            return user::all()->first()->paginate(10);
+        }
     }
 
     public function store(Request $request)
