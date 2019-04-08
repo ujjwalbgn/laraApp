@@ -2397,6 +2397,12 @@ __webpack_require__.r(__webpack_exports__);
     Fire.$on('LoadUser', function () {
       _this6.loadUsers();
     });
+    Fire.$on('searching', function () {
+      var query = _this6.$parent.search;
+      axios.get('api/findUser?q=' + query).then(function (data) {
+        _this6.users = data.data;
+      }).catch(function () {});
+    });
   }
 });
 
@@ -79183,7 +79189,15 @@ Vue.component('not-found', __webpack_require__(/*! ./components/404.vue */ "./re
 Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 var app = new Vue({
   el: '#app',
-  router: router
+  router: router,
+  data: {
+    search: ""
+  },
+  methods: {
+    searchStart: function searchStart() {
+      Fire.$emit('searching');
+    }
+  }
 });
 
 /***/ }),
