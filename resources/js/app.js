@@ -89,6 +89,10 @@ Vue.component(
     require('./components/404.vue').default
 );
 
+//Pagination
+Vue.component('pagination', require('laravel-vue-pagination'));
+
+
 const app = new Vue({
     el: '#app',
     router
