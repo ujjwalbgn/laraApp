@@ -79140,6 +79140,9 @@ var routes = [{
 }, {
   path: '/users',
   component: __webpack_require__(/*! ./components/Users */ "./resources/js/components/Users.vue").default
+}, {
+  path: '*',
+  component: __webpack_require__(/*! ./components/404 */ "./resources/js/components/404.vue").default
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
