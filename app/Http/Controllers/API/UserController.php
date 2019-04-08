@@ -116,6 +116,8 @@ class UserController extends Controller
             })->paginate(3);
 
             //todo change pagination number
+        } else {
+            $users = user::all()->first()->paginate(3);
         }
 
         return $users;

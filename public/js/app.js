@@ -79194,9 +79194,9 @@ var app = new Vue({
     search: ""
   },
   methods: {
-    searchStart: function searchStart() {
+    searchStart: _.debounce(function () {
       Fire.$emit('searching');
-    }
+    }, 700)
   }
 });
 
