@@ -5,9 +5,9 @@
  */
 
 require('./bootstrap');
-require('./helper/filters');
-require('./helper/progressBar');
-require('./helper/sweetAlert');
+require('./utilities/filters');
+require('./utilities/progressBar');
+require('./utilities/sweetAlert');
 
 window.Vue = require('vue');
 
@@ -40,7 +40,7 @@ const router = new VueRouter({
 window.Fire = new Vue();
 
 //User Type verification gate
-import Gate from './helper/gate';
+import Gate from './utilities/gate';
 Vue.prototype.$gate = new Gate(window.user);
 
 
