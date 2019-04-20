@@ -25,11 +25,11 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 let routes = [
-    { path: '/dashboard', component: require('./components/Dashboard').default },
-    { path: '/developer', component: require('./components/Developer').default },
+    { path: '/dashboard', component: require('./views/Dashboard').default },
+    { path: '/developer', component: require('./views/Developer').default },
     { path: '/profile', component: require('./components/Profile').default },
     { path: '/users', component: require('./components/Users').default },
-    { path: '*', component: require('./components/404').default },
+    { path: '*', component: require('./views/404').default },
 ]
 
 const router = new VueRouter({
@@ -88,7 +88,7 @@ Vue.component(
 //404 Vue Page
 Vue.component(
     'not-found',
-    require('./components/404.vue').default
+    require('./views/404.vue').default
 );
 
 //Pagination
